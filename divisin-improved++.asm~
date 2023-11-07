@@ -4,13 +4,10 @@
 jmp start
 
 ;data
-num1: equ 165
-num2: equ 8
-
-
+num1: equ 5
+num2: equ 12
 port1: equ 01
 port2: equ 02
-port3: equ 03
 
 
 ;code
@@ -18,7 +15,7 @@ start: nop
 	;moving first number to b and second one to c 
 	mvi b,num1
 	mvi c,num2
-
+floatPoint: nop
 	mov a,b
 	
 	;checking if b is bigger than c or not.
@@ -38,26 +35,22 @@ end2: inr e
 
 end:  inr d
       mov a,d
-      out port2
-      mov a,e
       out port1
-	
-      call handleFloat	
+      mov a,e
+      out port2
+	call handleFloat
       
-final:  inr d
-	mov a,d
-	out port3
 
 hlt
 	;changing placement of numbers so we can make sure that bigger number is getting divided 
 	;instead of dividing the smaller one by the bigger number
 handleSides: mov a,b
-	mov b,c
-	mov c,a
-	mvi a,0
-	mvi d,0
-	add b
-	call div
+		mov b,c
+		mov c,a
+		mvi a,0
+		mvi d,0
+		add b
+		call div
 		
 	;substracting the bigger number by the smaller number until we hit "0" 
 	;every time we didn't hit zero, "d" register will be incremented
@@ -83,8 +76,7 @@ handleRemain2: dcr a
 	call handleRemain2
 
 
-	;In here program adds the remainin number 9 time to itself so that it can calculate the first number
-	;after comma easily.
+
 handleFloat: mov a,e
 	     add e
 	     add e
@@ -95,16 +87,12 @@ handleFloat: mov a,e
 	     add e
 	     add e
 	     add e
+	     mov b,a
+	     mvi a,0
 	     mvi d,0
 	     mvi e,0
-	     call calculateFloat
-
-calculateFloat:  sub c
-	    
-	     jz final
-	     jc final
-	     inr d
-	     call calculateFloat
+	     call floatPoint
+	     
 	     
 
 
