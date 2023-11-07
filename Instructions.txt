@@ -1,0 +1,16 @@
+Instructions about the code.
+
+This code is written in GNU SIM 8085
+
+num1-num2 are numbers to be divided into. The order of numbers is not important, the program will automatically divide
+the big number by the smaller one.
+
+The output is going to be at I/O outports. 
+
+Result will be in the port 02h
+Remain will be in the port 01h
+
+As an extra, the first decimal value is located at the end of the division operation in port 03h.
+
+For instance if you give 12 as num2 and 5 as num2, 13/5 is 2 (stored at port 02h) and 3 (stored at port 01h) as 
+remaining number. It is also equal to 2,6. So 6 is stored in port 03h.
